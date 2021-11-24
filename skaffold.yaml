@@ -1,0 +1,35 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: hello-world
+build:
+  insecureRegistries:
+  - localhost:32000
+  local:
+    push: true
+    useBuildkit: true
+    concurrency: 0
+  artifacts:
+  - image: hello-world/hello
+    docker:
+      dockerfile: hello.Dockerfile
+  - image: hello-world/world
+    docker:
+      dockerfile: world.Dockerfile
+  - image: hello-world/greeting
+    docker:
+      dockerfile: greeting.Dockerfile
+deploy:
+  helm:
+    releases:
+    - name: hello-world
+      createNamespace: true
+      namespace: hello-world
+      chartPath: ./chart
+      artifactOverrides:
+        hello: hello-world/hello
+        world: hello-world/world
+        greeting: hello-world/greeting
+      imageStrategy:
+        helm:
+          explicitRegistry: true

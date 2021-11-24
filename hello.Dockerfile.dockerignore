@@ -1,0 +1,12 @@
+src/bin/world.rs
+src/bin/greeter.rs
+.git
+.gitignore
+*.dockerignore
+*.Dockerfile
+target
+*.md
+LICENSE
+chart
+skaffold.yaml
+Makefile

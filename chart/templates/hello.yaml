@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  selector:
+    app: hello
+  ports:
+    - protocol: TCP
+      port: 50051
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: "{{.Values.hello.registry}}/{{.Values.hello.repository}}:{{.Values.hello.tag}}"

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package hello_world_grpc;
+
+message Greeting {
+  string greeting = 1;
+}
+
+message Hello {
+  string hello = 1;
+}
+
+message World {
+  string world = 1;
+}
+
+message GreeterRequest {}
+
+message GreeterResponse {
+  Greeting greeting = 1;
+}
+
+service Greeter {
+  rpc GetGreeting(GreeterRequest) returns (GreeterResponse);
+}
+
+message HelloRequest {}
+
+message HelloResponse {
+  Hello hello = 1;
+}
+
+service Helloer {
+  rpc GetHello(HelloRequest) returns (HelloResponse);
+}
+
+message WorldRequest {}
+
+message WorldResponse {
+  World world = 1;
+}
+service Worlder {
+  rpc GetWorld(WorldRequest) returns (WorldResponse);
+}
