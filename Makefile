@@ -1,7 +1,7 @@
 REGISTRY ?= localhost:32000
 REGISTRY_PATH ?= $(REGISTRY)/
 
-build: hello world greeting
+build: hello world greeting api
 
 hello:
 	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/hello -f hello.Dockerfile .
@@ -13,28 +13,39 @@ world:
 
 greeting:
 	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/greeting -f greeting.Dockerfile .
-.PHONY: greeter
+.PHONY: greeting
 
-push: push-hello push-world push-greeting
+api:
+	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/api -f api.Dockerfile .
+.PHONY: api
+
+push: push-hello push-world push-greeting push-api
 .PHONY: push
 
 push-hello:
 	docker push $(REGISTRY_PATH)hello-world/hello:latest
-.PHONY: hello
+.PHONY: push-hello
 
 push-world:
 	docker push $(REGISTRY_PATH)hello-world/world:latest
-.PHONY: world
+.PHONY: push-world
 
 push-greeting:
 	docker push $(REGISTRY_PATH)hello-world/greeting:latest
-.PHONY: greeting
+.PHONY: push-greeting
+
+push-api:
+	docker push $(REGISTRY_PATH)hello-world/api:latest
+.PHONY: push-api
 
 skaffold:
 	skaffold dev --default-repo $(REGISTRY)
+.PHONY: skaffold
 
 install:
 	helm install --namespace hello-world --create-namespace hello-world ./chart
+.PHONY: install
 
 uninstall:
 	helm uninstall hello-world
+.PHONY: uninstall

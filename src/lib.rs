@@ -25,11 +25,11 @@ pub fn service(name: &str) -> String {
 }
 
 pub fn hello() -> String {
-	"Hola".to_string()
+	"hello".to_string()
 }
 
 pub fn world() -> String {
-	"mundo".to_string()
+	"world".to_string()
 }
 
 #[cfg(test)]

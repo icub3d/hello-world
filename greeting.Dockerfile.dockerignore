@@ -1,5 +1,6 @@
 src/bin/world.rs
 src/bin/hello.rs
+src/bin/api.rs
 .git
 .gitignore
 *.dockerignore

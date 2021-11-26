@@ -1,5 +1,6 @@
 src/bin/hello.rs
 src/bin/greeter.rs
+src/bin/api.rs
 .git
 .gitignore
 *.dockerignore

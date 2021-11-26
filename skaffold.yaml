@@ -19,6 +19,9 @@ build:
   - image: hello-world/greeting
     docker:
       dockerfile: greeting.Dockerfile
+  - image: hello-world/api
+    docker:
+      dockerfile: api.Dockerfile
 deploy:
   helm:
     releases:
@@ -30,6 +33,7 @@ deploy:
         hello: hello-world/hello
         world: hello-world/world
         greeting: hello-world/greeting
+        api: hello-world/api
       imageStrategy:
         helm:
           explicitRegistry: true
