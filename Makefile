@@ -1,7 +1,11 @@
 REGISTRY ?= localhost:32000
 REGISTRY_PATH ?= $(REGISTRY)/
 
-build: hello world greeting api
+build: hello world greeting api ui
+
+ui:
+	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/ui -f ui.Dockerfile .
+.PHONY: ui
 
 hello:
 	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/hello -f hello.Dockerfile .
@@ -19,8 +23,12 @@ api:
 	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY_PATH)hello-world/api -f api.Dockerfile .
 .PHONY: api
 
-push: push-hello push-world push-greeting push-api
+push: push-hello push-world push-greeting push-api push-ui
 .PHONY: push
+
+push-ui:
+	docker push $(REGISTRY_PATH)hello-world/ui:latest
+.PHONY: push-ui
 
 push-hello:
 	docker push $(REGISTRY_PATH)hello-world/hello:latest

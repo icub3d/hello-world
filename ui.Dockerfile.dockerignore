@@ -1,7 +1,4 @@
-src/bin/world.rs
-src/bin/greeter.rs
-src/bin/api.rs
-ui
+src
 .git
 .gitignore
 *.dockerignore
@@ -12,3 +9,6 @@ LICENSE
 chart
 skaffold.yaml
 Makefile
+ui/node_modules
+ui/coverage
+ui/build
